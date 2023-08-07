@@ -18,4 +18,7 @@ public class PostRequestBody {
 
   @NotNull(message = "The post category id cannot be blank")
   private Long categoryId;
+
+  @NotNull(message = "The post user id cannot be blank")
+  private Long userId;
 }

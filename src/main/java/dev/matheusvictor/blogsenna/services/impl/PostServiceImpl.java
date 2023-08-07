@@ -8,6 +8,7 @@ import dev.matheusvictor.blogsenna.request.post.PostPutRequestBody;
 import dev.matheusvictor.blogsenna.request.post.PostRequestBody;
 import dev.matheusvictor.blogsenna.services.CategoryService;
 import dev.matheusvictor.blogsenna.services.PostService;
+import dev.matheusvictor.blogsenna.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +24,13 @@ public class PostServiceImpl implements PostService {
 
   private final CategoryService categoryService;
 
+  private final UserService userService;
+
   @Override
   public Post create(PostRequestBody post) {
     Post postToCreate = mapPostBodyToPost(post);
     postToCreate.setCategory(categoryService.findById(post.getCategoryId()));
+    postToCreate.setUser(userService.findById(post.getUserId()));
     return postRepository.save(postToCreate);
   }
 

@@ -17,3 +17,8 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:secret-key}

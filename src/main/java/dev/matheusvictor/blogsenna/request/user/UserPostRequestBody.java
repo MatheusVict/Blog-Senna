@@ -23,6 +23,5 @@ public class UserPostRequestBody {
   private String password;
 
   @NotNull(message = "Role cannot be blank")
-  @NotEmpty(message = "Role cannot be empty")
   private UserRole role;
 }

@@ -5,7 +5,7 @@ CREATE TABLE post (
    description VARCHAR(255) NOT NULL,
    content VARCHAR(255) NOT NULL,
    category_id BIGINT NOT NULL,
-   user_id VARCHAR(255) NOT NULL,
+   user_id BIGINT NOT NULL,
    CONSTRAINT pk_post PRIMARY KEY (id)
 );
 

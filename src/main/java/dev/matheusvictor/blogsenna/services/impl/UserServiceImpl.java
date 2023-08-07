@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     User userMapped = mapUserRequestBodyToUser(userPutRequestBody);
     userMapped.setId(user.getId());
     return userRepository.save(userMapped);
-  }
+}
 
   @Override
   public void delete(Long id) {
@@ -59,9 +59,10 @@ public class UserServiceImpl implements UserService {
     userRepository.delete(user);
   }
 
-  private User mapUserRequestBodyToUser(UserPostRequestBody userPostRequestBody) {
-    userPostRequestBody.setPassword(encryptPassword(userPostRequestBody.getPassword()));
-    return UserMapper.INSTANCE.toCategory(userPostRequestBody);
+  private User mapUserRequestBodyToUser(UserPostRequestBody userPostRequestBody) {;
+    User user = UserMapper.INSTANCE.toCategory(userPostRequestBody);
+    user.setPassword(encryptPassword(userPostRequestBody.getPassword()));
+    return user;
   }
 
   private User mapUserRequestBodyToUser(UserPutRequestBody userPutRequestBody) {

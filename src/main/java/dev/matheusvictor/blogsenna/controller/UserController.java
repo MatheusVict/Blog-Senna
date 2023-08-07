@@ -1,6 +1,7 @@
 package dev.matheusvictor.blogsenna.controller;
 
 import dev.matheusvictor.blogsenna.domain.user.User;
+import dev.matheusvictor.blogsenna.request.user.UserPostRequestBody;
 import dev.matheusvictor.blogsenna.request.user.UserPutRequestBody;
 import dev.matheusvictor.blogsenna.services.UserService;
 import jakarta.validation.Valid;
@@ -32,6 +33,11 @@ public class UserController {
   @GetMapping("/{id}")
   public ResponseEntity<User> findById(@PathVariable Long id) {
     return ResponseEntity.ok(userService.findById(id));
+  }
+
+  @PostMapping
+  public ResponseEntity<User> create(@Valid @RequestBody UserPostRequestBody userPostRequestBody) {
+    return ResponseEntity.ok(userService.create(userPostRequestBody));
   }
 
   @PutMapping("/{id}")
