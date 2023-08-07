@@ -4,6 +4,7 @@ import dev.matheusvictor.blogsenna.domain.category.Category;
 import dev.matheusvictor.blogsenna.request.category.CategoryPostRequestBody;
 import dev.matheusvictor.blogsenna.request.category.CategoryPutRequestBody;
 import dev.matheusvictor.blogsenna.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,14 +37,14 @@ public class CategoryController {
   }
 
   @PostMapping
-  public ResponseEntity<Category> create(@RequestBody CategoryPostRequestBody categoryPostRequestBody) {
+  public ResponseEntity<Category> create(@Valid @RequestBody CategoryPostRequestBody categoryPostRequestBody) {
     return ResponseEntity.ok(categoryService.create(categoryPostRequestBody));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<Category> update(
           @PathVariable Long id,
-          @RequestBody CategoryPutRequestBody categoryPutRequestBody
+          @Valid @RequestBody CategoryPutRequestBody categoryPutRequestBody
   ) {
     return ResponseEntity.ok(categoryService.update(id, categoryPutRequestBody));
   }

@@ -4,6 +4,7 @@ import dev.matheusvictor.blogsenna.domain.post.Post;
 import dev.matheusvictor.blogsenna.request.post.PostPutRequestBody;
 import dev.matheusvictor.blogsenna.request.post.PostRequestBody;
 import dev.matheusvictor.blogsenna.services.PostService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,14 +41,14 @@ public class PostController {
   }
 
   @PostMapping
-  public ResponseEntity<Post> create(@RequestBody PostRequestBody postRequestBody) {
+  public ResponseEntity<Post> create(@Valid @RequestBody PostRequestBody postRequestBody) {
     return ResponseEntity.ok(postService.create(postRequestBody));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<Post> update(
           @PathVariable Long id,
-          @RequestBody PostPutRequestBody postPutRequestBody
+          @Valid @RequestBody PostPutRequestBody postPutRequestBody
   ) {
     return ResponseEntity.ok(postService.update(id, postPutRequestBody));
   }

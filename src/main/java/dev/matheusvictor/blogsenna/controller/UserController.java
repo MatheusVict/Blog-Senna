@@ -3,6 +3,7 @@ package dev.matheusvictor.blogsenna.controller;
 import dev.matheusvictor.blogsenna.domain.user.User;
 import dev.matheusvictor.blogsenna.request.user.UserPutRequestBody;
 import dev.matheusvictor.blogsenna.services.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,17 +30,17 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<User> findById(Long id) {
+  public ResponseEntity<User> findById(@PathVariable Long id) {
     return ResponseEntity.ok(userService.findById(id));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<User> update(Long id, UserPutRequestBody userPutRequestBody) {
+  public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody UserPutRequestBody userPutRequestBody) {
     return ResponseEntity.ok(userService.update(id, userPutRequestBody));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     userService.delete(id);
     return ResponseEntity.noContent().build();
   }
