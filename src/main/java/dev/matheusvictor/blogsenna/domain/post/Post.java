@@ -1,6 +1,7 @@
 package dev.matheusvictor.blogsenna.domain.post;
 
 import dev.matheusvictor.blogsenna.domain.category.Category;
+import dev.matheusvictor.blogsenna.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +33,9 @@ public class Post {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
   private Category category;
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+  private User user;
 
 }
