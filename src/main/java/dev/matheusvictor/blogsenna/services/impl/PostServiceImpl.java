@@ -1,6 +1,8 @@
 package dev.matheusvictor.blogsenna.services.impl;
 
+import dev.matheusvictor.blogsenna.domain.category.Category;
 import dev.matheusvictor.blogsenna.domain.post.Post;
+import dev.matheusvictor.blogsenna.domain.user.User;
 import dev.matheusvictor.blogsenna.exception.NotFoundException;
 import dev.matheusvictor.blogsenna.mapper.PostMapper;
 import dev.matheusvictor.blogsenna.repository.PostRepository;
@@ -59,7 +61,7 @@ public class PostServiceImpl implements PostService {
   @Override
   public Post update(Long id, PostPutRequestBody postPutRequestBody) {
     Post postToUpdate = findById(id);
-    Post post = mapPutBodyToPost(postPutRequestBody, postToUpdate.getCategory().getId());
+    Post post = mapPutBodyToPost(postPutRequestBody, postToUpdate.getCategory(), postToUpdate.getUser());
     post.setId(postToUpdate.getId());
     return postRepository.save(post);
   }
@@ -77,10 +79,11 @@ public class PostServiceImpl implements PostService {
     return post;
   }
 
-  private Post mapPutBodyToPost(PostPutRequestBody postPutRequestBody, Long categoryId) {
+  private Post mapPutBodyToPost(PostPutRequestBody postPutRequestBody, Category category, User user) {
     Post post = PostMapper.INSTANCE.toPost(postPutRequestBody);
     post.setSlug(getUniqueSlug(post.getTitle()));
-    post.getCategory().setId(categoryId);
+    post.setUser(user);
+    post.setCategory(category);
     return post;
   }
 
