@@ -38,4 +38,8 @@ public class PostCreator {
             .user(UserCreator.createValidUser())
             .build();
   }
+
+  public static String getSlug(String name) {
+    return name.toLowerCase().replace(" ", "-");
+  }
 }

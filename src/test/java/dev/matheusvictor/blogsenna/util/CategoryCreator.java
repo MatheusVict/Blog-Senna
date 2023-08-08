@@ -29,4 +29,9 @@ public class CategoryCreator {
             .description("Category 1 description")
             .build();
   }
+
+  public static String getSlug(String name) {
+    return name.toLowerCase().replace(" ", "-");
+  }
+
 }

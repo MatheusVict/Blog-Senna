@@ -1,7 +1,11 @@
 package dev.matheusvictor.blogsenna.request.post;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 public class PostPutRequestBody {
   @NotBlank(message = "The post title cannot be blank")
   private String title;
