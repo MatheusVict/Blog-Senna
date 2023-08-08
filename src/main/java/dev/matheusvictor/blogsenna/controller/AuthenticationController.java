@@ -4,6 +4,8 @@ import dev.matheusvictor.blogsenna.domain.user.LoginResponse;
 import dev.matheusvictor.blogsenna.domain.user.User;
 import dev.matheusvictor.blogsenna.request.user.LoginRequestBody;
 import dev.matheusvictor.blogsenna.services.authentication.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class AuthenticationController {
   private final TokenService tokenService;
 
   @PostMapping("/login")
+  @Operation(summary = "Login", description = "You can login with your email and password")
+  @Tag(name = "auth")
   public ResponseEntity<?> login(@RequestBody @Valid LoginRequestBody loginRequestBody) {
     UsernamePasswordAuthenticationToken userNamePassword =
             new UsernamePasswordAuthenticationToken(loginRequestBody.getEmail(), loginRequestBody.getPassword());
