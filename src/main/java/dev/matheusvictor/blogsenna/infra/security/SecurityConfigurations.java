@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,17 +22,26 @@ public class SecurityConfigurations {
 
   private final SecurityFilter securityFilter;
 
+  private final String[] AUTH_SWAGGER_WHITELIST = {
+          "/swagger-ui/**",
+          "/swagger-ui",
+          "/swagger-resources/**",
+          "/webjars/**",
+          "/v3/api-docs/**",
+          "/swagger-ui.html"
+  };
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
-            .csrf(csrf -> csrf.disable())
+            .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                     .requestMatchers(HttpMethod.POST, "/users").permitAll()
                     .requestMatchers(HttpMethod.GET, "/posts/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
-                    .requestMatchers("/swagger-ui/**", "/swagger-ui", "/v3/api-docs/**").permitAll()
+                    .requestMatchers(AUTH_SWAGGER_WHITELIST).permitAll()
                     .requestMatchers(HttpMethod.POST, "/posts").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/posts/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/posts/**").hasRole("ADMIN")
