@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: blog_senna
+    networks:
+      - blog-network
+  blog-senna:
+    image: matheusvict/blog-senna:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    networks:
+      - blog-network
+networks:
+  blog-network:
+    driver: bridge
