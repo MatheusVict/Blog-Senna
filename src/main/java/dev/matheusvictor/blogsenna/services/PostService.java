@@ -15,6 +15,8 @@ public interface PostService {
 
   Page<Post> findAllPageable(Pageable pageable);
 
+  List<Post> findAllPostsByCategorySlug(String categorySlug);
+
   Post findBySlug(String slug);
 
   Post findById(Long id);

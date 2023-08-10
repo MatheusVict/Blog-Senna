@@ -44,6 +44,9 @@ class PostControllerTest {
     BDDMockito.when(postService.findAll())
             .thenReturn(List.of(PostCreator.createValidPost()));
 
+BDDMockito.when(postService.findAllPostsByCategorySlug(ArgumentMatchers.anyString()))
+            .thenReturn(List.of(PostCreator.createValidPost()));
+
     BDDMockito.when(postService.findById(ArgumentMatchers.anyLong()))
             .thenReturn(PostCreator.createValidPost());
 
@@ -83,6 +86,19 @@ class PostControllerTest {
 
     assertEquals(expectedTitle, posts.get(0).getTitle());
     assertEquals(expectedSlug, PostCreator.getSlug(expectedTitle));
+  }
+
+  @Test
+  @DisplayName("findAll by category slug returns list of posts when successful")
+  public void should_ReturnListOfPostsByCategorySlug_WhenSuccessful() {
+    String expectedTitle = PostCreator.createValidPost().getTitle();
+    String expectedCategorySlug = PostCreator.createValidPost().getCategory().getSlug();
+    List<Post> posts = postController.findAll().getBody();
+
+    assertNotNull(posts);
+
+    assertEquals(expectedTitle, posts.get(0).getTitle());
+    assertEquals(expectedCategorySlug, posts.get(0).getCategory().getSlug());
   }
 
   @Test
