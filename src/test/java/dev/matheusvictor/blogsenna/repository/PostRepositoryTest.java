@@ -6,11 +6,14 @@ import dev.matheusvictor.blogsenna.domain.user.User;
 import dev.matheusvictor.blogsenna.util.CategoryCreator;
 import dev.matheusvictor.blogsenna.util.PostCreator;
 import dev.matheusvictor.blogsenna.util.UserCreator;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -173,6 +176,29 @@ class PostRepositoryTest {
     boolean exists = this.postRepository.existsBySlug(postSaved.getSlug());
 
     assertTrue(exists);
+  }
+  @Test
+  @DisplayName("Find by category slug returns true when successful")
+  public void should_ReturnListOfPostByCategorySlug_WhenSuccessful() {
+    Category category = CategoryCreator.createCategoryToBeSaved();
+    User user = UserCreator.createUserToBeSaved();
+
+    Category saveCategory = this.categoryRepository.save(category);
+    User saveUser = this.userRepository.save(user);
+
+    Post postToBeSaved = PostCreator.createPostToBeSaved();
+    postToBeSaved.setCategory(saveCategory);
+    postToBeSaved.setUser(saveUser);
+
+    Post postSaved = this.postRepository.save(postToBeSaved);
+
+    List<Post> byCategorySlug = this.postRepository.findByCategorySlug(postSaved.getCategory().getSlug());
+
+    String expectedCategorySlug = postSaved.getCategory().getSlug();
+
+    assertNotNull(byCategorySlug);
+    assertFalse(byCategorySlug.isEmpty());
+    assertEquals(byCategorySlug.get(0).getCategory().getSlug(), expectedCategorySlug);
   }
 
 }

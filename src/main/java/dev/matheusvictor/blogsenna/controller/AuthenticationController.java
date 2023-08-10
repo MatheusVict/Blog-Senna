@@ -25,8 +25,6 @@ public class AuthenticationController {
   @Operation(summary = "Login", description = "You can login with your email and password")
   @Tag(name = "auth")
   public ResponseEntity<?> login(@RequestBody @Valid LoginRequestBody loginRequestBody) {
-
-
     return ResponseEntity.ok(authenticationService.login(loginRequestBody));
   }
 

@@ -16,4 +16,9 @@ public class LoginRequestBody {
   @NotBlank(message = "The user password cannot be blank")
   @Schema(description = "This is the user's password", example = "123456")
   private String password;
+
+  public LoginRequestBody(String email, String password) {
+    this.email = email;
+    this.password = password;
+  }
 }
