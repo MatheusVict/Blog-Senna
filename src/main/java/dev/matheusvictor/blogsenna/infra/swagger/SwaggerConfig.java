@@ -24,10 +24,11 @@ public class SwaggerConfig {
                     addList("Bearer Authentication"))
             .components(new Components().addSecuritySchemes
                     ("Bearer Authentication", createAPIKeyScheme()))
-            .info(new Info().title("My REST API")
+            .info(new Info().title("Blog Senna")
                     .description("API from the Senna Blog to talk about automobilism")
                     .version("1.0").contact(new Contact().name("Matheus Victor")
-                            .email( "matheusvictorhenrique@gmail.com").url("https://portfolio-kappa-ten-20.vercel.app/"))
+                            .email("matheusvictorhenrique@gmail.com")
+                            .url("https://github.com/MatheusVict/Blog-Senna"))
                     .license(new License().name("License of API")
                             .url("API license URL")));
   }

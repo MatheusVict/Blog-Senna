@@ -4,6 +4,7 @@ import dev.matheusvictor.blogsenna.domain.category.Category;
 import dev.matheusvictor.blogsenna.domain.user.User;
 import dev.matheusvictor.blogsenna.request.category.CategoryPostRequestBody;
 import dev.matheusvictor.blogsenna.request.category.CategoryPutRequestBody;
+import dev.matheusvictor.blogsenna.request.user.RegisterUserRequestBody;
 import dev.matheusvictor.blogsenna.request.user.UserPostRequestBody;
 import dev.matheusvictor.blogsenna.request.user.UserPutRequestBody;
 import org.mapstruct.Mapper;
@@ -16,4 +17,6 @@ public abstract class UserMapper {
   public abstract User toCategory(UserPostRequestBody userPostRequestBody);
 
   public abstract User toCategory(UserPutRequestBody userPutRequestBody);
+
+  public abstract UserPostRequestBody toUserPostRequestBody(RegisterUserRequestBody registerUserRequestBody);
 }
