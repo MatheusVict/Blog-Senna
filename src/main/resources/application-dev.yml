@@ -3,7 +3,7 @@ server:
     include-message: never
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/${DB_NAME:blog_senna}?serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/blog_senna?serverTimezone=UTC
     username: postgres
     password: 123456
   jpa:
