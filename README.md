@@ -50,6 +50,10 @@ O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://loc
 ```
 docker run matheusvict/blog-senna
 ```
+- Pode usar o docker compose
+```
+docker compose up
+```
 
 ou
 
@@ -100,13 +104,12 @@ Para fazer as requisições HTTP abaixo, foi utilizada a ferramenta [Insominia](
 
 ### Users
 
-- POST /users
+- POST /auth/register
 ```json
 {
   "name": "Matheus Victor",
   "email": "user@email.com",
-  "password": "123456",
-  "role": "USER"
+  "password": "123456"
 }
 ```
 
@@ -130,19 +133,44 @@ Para fazer as requisições HTTP abaixo, foi utilizada a ferramenta [Insominia](
 }
 ```
 
-- PUT /users/{id}
-```json
-{
-  "name": "Matheus Victor",
-  "email": "user@email.com",
-  "password": "123456",
-  "role": "ADMIN"
-}
-```
-
 ### Posts
 
 - GET /posts
+```json
+[
+  {
+    "id": 0,
+    "title": "string",
+    "slug": "string",
+    "description": "string",
+    "content": "string",
+    "category": {
+      "id": 0,
+      "name": "string",
+      "description": "string",
+      "slug": "string"
+    },
+    "user": {
+      "id": 0,
+      "name": "string",
+      "email": "string",
+      "role": "ADMIN",
+      "enabled": true,
+      "authorities": [
+        {
+          "authority": "string"
+        }
+      ],
+      "username": "string",
+      "accountNonExpired": true,
+      "accountNonLocked": true,
+      "credentialsNonExpired": true
+    }
+  }
+]
+```
+
+- GET /posts/byCategory?slug={categorySlug}
 ```json
 [
   {
@@ -319,4 +347,57 @@ GET /categories
     "slug": "string"
   }
 ]
+```
+
+GET /categories/{slug}
+```json
+
+[
+  {
+    "id": 0,
+    "name": "string",
+    "description": "string",
+    "slug": "string"
+  }
+]
+```
+
+GET /categories/pageable
+```json
+
+{
+  "totalPages": 0,
+  "totalElements": 0,
+  "size": 0,
+  "content": [
+    {
+      "id": 0,
+      "name": "string",
+      "description": "string",
+      "slug": "string"
+    }
+  ],
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "unsorted": true,
+    "sorted": true
+  },
+  "pageable": {
+    "offset": 0,
+    "sort": {
+      "empty": true,
+      "unsorted": true,
+      "sorted": true
+    },
+    "paged": true,
+    "unpaged": true,
+    "pageNumber": 0,
+    "pageSize": 0
+  },
+  "numberOfElements": 0,
+  "first": true,
+  "last": true,
+  "empty": true
+}
 ```
