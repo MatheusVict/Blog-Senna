@@ -30,7 +30,7 @@ public class SwaggerConfig {
                             .email("matheusvictorhenrique@gmail.com")
                             .url("https://github.com/MatheusVict/Blog-Senna"))
                     .license(new License().name("License of API")
-                            .url("API license URL")));
+                            .url("https://opensource.org/license/mit/")));
   }
 
 }

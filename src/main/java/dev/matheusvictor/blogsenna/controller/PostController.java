@@ -47,6 +47,13 @@ public class PostController {
     return ResponseEntity.ok(postService.findBySlug(slug));
   }
 
+  @GetMapping("/byCategory")
+  @Operation(summary = "Find all post by category slug", description = "Find all post by category slug in database")
+  @Tag(name = "posts")
+  public ResponseEntity<List<Post>> findByCategorySlug(@RequestParam(name = "slug") String slug) {
+    return ResponseEntity.ok(postService.findAllPostsByCategorySlug(slug));
+  }
+
   @GetMapping("/id/{id}")
   @Operation(summary = "Find post by id")
   @Tag(name = "posts")

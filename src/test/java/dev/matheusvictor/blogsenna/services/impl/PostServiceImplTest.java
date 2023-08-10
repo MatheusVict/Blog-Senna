@@ -59,6 +59,9 @@ class PostServiceImplTest {
     BDDMockito.when(postRepository.findAll())
             .thenReturn(List.of(PostCreator.createValidPost()));
 
+    BDDMockito.when(postRepository.findByCategorySlug(ArgumentMatchers.anyString()))
+            .thenReturn(List.of(PostCreator.createValidPost()));
+
     BDDMockito.when(postRepository.findById(ArgumentMatchers.anyLong()))
             .thenReturn(Optional.of(PostCreator.createValidPost()));
 
@@ -94,6 +97,19 @@ class PostServiceImplTest {
     assertNotNull(postList.get(0).getUser());
     assertNotNull(postList.get(0).getCategory());
     assertEquals(postList.get(0).getTitle(), expectedName);
+  }
+
+  @Test
+  @DisplayName("FindAll Posts By Category Slug should return a post list")
+  public void should_ReturnPostListByCategorySlug_WhenSuccess() {
+    String expectedCategorySlug = PostCreator.createValidPost().getCategory().getSlug();
+    List<Post> postList = postService.findAllPostsByCategorySlug(expectedCategorySlug);
+
+
+    assertNotNull(postList);
+    assertNotNull(postList.get(0).getUser());
+    assertNotNull(postList.get(0).getCategory());
+    assertEquals(postList.get(0).getCategory().getSlug(), expectedCategorySlug);
   }
 
   @Test

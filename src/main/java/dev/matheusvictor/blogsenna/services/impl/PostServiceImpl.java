@@ -47,6 +47,11 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  public List<Post> findAllPostsByCategorySlug(String categorySlug) {
+    return postRepository.findByCategorySlug(categorySlug);
+  }
+
+  @Override
   public Post findBySlug(String slug) {
     return postRepository.findBySlug(slug)
             .orElseThrow(() -> new NotFoundException("Post with slug '\" + slug + \"' not found"));
