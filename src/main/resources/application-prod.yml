@@ -10,8 +10,7 @@ spring:
     open-in-view: false
     properties:
       hibernate:
-        auto: create
-        ddl-auto: update
+        ddl-auto: validate
 api:
   security:
     token:
